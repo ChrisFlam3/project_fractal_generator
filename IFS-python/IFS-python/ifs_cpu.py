@@ -170,11 +170,11 @@ class ifs_cpu():
         return min(max(x, minVal), maxVal);
     
     def determinant(self,mat):
-        matPointer = mat.getMatrix();
+        matPointer = mat.matrix();
         return abs(matPointer[0] * matPointer[5] * matPointer[10] - matPointer[4] * matPointer[1] * matPointer[10]);
 
     def div(self,mat, x):###
-        mat = sf.Transform(mat.getMatrix()[0] / x, mat.getMatrix()[4] / x, mat.getMatrix()[12], mat.getMatrix()[1] / x, mat.getMatrix()[5] / x, mat.getMatrix()[13], mat.getMatrix()[2], mat.getMatrix()[6], mat.getMatrix()[10]);
+        mat = sf.Transform(mat.matrix()[0] / x, mat.matrix()[4] / x, mat.matrix()[12], mat.matrix()[1] / x, mat.matrix()[5] / x, mat.matrix()[13], mat.matrix()[2], mat.matrix()[6], mat.matrix()[10]);
 
     #gaussian
     def calculateKernel(self,x, sigma):

@@ -2,6 +2,7 @@ import sfml.sf as sf
 import numpy as np
 from ifs_general import ifs_general
 from ifs_cpu import ifs_cpu
+from ifs_gpu import ifs_gpu
 import math
 class generator(object):
     winH=1080
@@ -15,6 +16,7 @@ class generator(object):
         self.window.framerate_limit=60
         self.general=ifs_general()
         self.cpu_ifs=ifs_cpu(self.general)
+        self.gpu_ifs=ifs_gpu(self.general)
     def loop(self):
         pass
 
@@ -31,7 +33,10 @@ gen.general.affineTransforms[0]=[0.49,0.1,-0.2,
                                  0.5,0.5]
 gen.general.affineTransforms[1]=[0.59,-0.29,0.1,0.3,0.49,0.1,0.5,0.5]
 gen.general.current[0]=0
-gen.cpu_ifs.render_to_file()
+#gen.cpu_ifs.render_to_file()
+
 #img=sf.Image.create(2048,2048)
 #img.create(2048, 2048)
 #img.to_file("ifs.png")
+
+gen.gpu_ifs.render_to_file()
