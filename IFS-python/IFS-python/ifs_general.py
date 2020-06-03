@@ -1,4 +1,6 @@
 import numpy as np
+
+#general class for data handling
 class ifs_general(object):
     
     def __init__(self):
@@ -13,7 +15,7 @@ class ifs_general(object):
         self.renderType=0
         self.postTransforms=[[0 for i in range(6)] for i in range(6)]
         for i in range(6):
-            self.postTransforms[i][0] = 1;
-            self.postTransforms[i][4] = 1;
+            self.postTransforms[i][0] = 1
+            self.postTransforms[i][4] = 1
 
 

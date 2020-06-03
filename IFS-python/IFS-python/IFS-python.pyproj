@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e0d91ba4-0ce5-45d6-adc9-62db6b5c142f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>IFS_python.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,7 +34,9 @@
     <Compile Include="ifs_gpu.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IFS_python.py" />
+    <Compile Include="ui.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -3,10 +3,15 @@ import numpy as np
 from ifs_general import ifs_general
 from ifs_cpu import ifs_cpu
 from ifs_gpu import ifs_gpu
+from ui import ui
 import math
+import pynk
+
+#IFS generator class
 class generator(object):
     winH=1080
-
+    
+    #window and logic initialization
     def __init__(self):
         self.view=sf.View(sf.Rect((0,0),(500,500)))
         self.view.viewport=(sf.Rect((0.474,0.2685),(0.26,0.463)))
@@ -17,26 +22,35 @@ class generator(object):
         self.general=ifs_general()
         self.cpu_ifs=ifs_cpu(self.general)
         self.gpu_ifs=ifs_gpu(self.general)
+        self.gui=ui()
+
+    #main loop
     def loop(self):
-        pass
+        while(self.window.is_open):
+          
+            #INPUT
+            pynk.lib.nk_input_begin(self.gui.ctx)
+            for event in self.window.events:
+                if (event.type == sf.Event.CLOSED):
+                    self.window.close()
+                elif(event.type==sf.Event.RESIZED):
+                    self.winH=event.items()._mapping.event.height
+                    self.window.view=sf.View(sf.Rect((0,0),(event.items()._mapping.event.width, self.winH)))
+                self.gui.eventsToGui(event)
+            pynk.lib.nk_input_end(self.gui.ctx)
+
+            #draw
+            self.gui.gui_loop(self.winH,self.window,self.cpu_ifs,self.gpu_ifs,self.general)
+            self.window.clear()
+            self.gui.draw(self.window)
+            if self.cpu_ifs.screen!=None:
+                defaultView = self.window.view
+                self.window.view=self.view
+                self.window.draw(self.cpu_ifs.screen)
+                self.window.view=defaultView
+            self.window.display()
+           
 
 #test
 gen=generator()
-gen.general.affineNum=2
-gen.general.unlinearNum=0
-gen.general.zoom=1
-gen.general.boundedFunctionScale=1
-gen.general.gauss=9
-gen.general.iterationsInMld=1
-gen.general.affineTransforms[0]=[0.49,0.1,-0.2,
-                                 -0.19,0.69,0.39,
-                                 0.5,0.5]
-gen.general.affineTransforms[1]=[0.59,-0.29,0.1,0.3,0.49,0.1,0.5,0.5]
-gen.general.current[0]=0
-#gen.cpu_ifs.render_to_file()
-
-#img=sf.Image.create(2048,2048)
-#img.create(2048, 2048)
-#img.to_file("ifs.png")
-
-gen.gpu_ifs.render_to_file()
+gen.loop()
